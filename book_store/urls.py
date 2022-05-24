@@ -32,5 +32,5 @@ urlpatterns = [
     path('', include('books.urls')),
     path('docs/', include_docs_urls(title='Books API')),
     path('schema/', schema_view),
-    path('schema-v2/', schema_view),
+    path('swagger-schema/', swagger_schema_view),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
