@@ -4,7 +4,6 @@ from books.models import Book, Order, OrderedBook
 
 
 class BookSerializer(serializers.ModelSerializer):
-
     class Meta:
         fields = ('id', 'title', 'category', 'image', 'description', 'author', 'published_date', 'price')
         model = Book
@@ -19,7 +18,7 @@ class OrderedBookSerializer(serializers.ModelSerializer):
 
 
 class OrderSerializer(serializers.ModelSerializer):
-    books = OrderedBookSerializer(many=True, read_only=True)
+    books = serializers.HyperlinkedRelatedField(many=True, view_name='book_detail', read_only=True)
     status = serializers.CharField(source='get_status_display')
 
     class Meta:

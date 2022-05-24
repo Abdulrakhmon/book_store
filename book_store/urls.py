@@ -18,10 +18,19 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.authtoken.views import obtain_auth_token
+from rest_framework.documentation import include_docs_urls
+from rest_framework.schemas import get_schema_view
+from rest_framework_swagger.views import get_swagger_view
+
+schema_view = get_schema_view(title='Books API')
+swagger_schema_view = get_swagger_view(title='Books API')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
     path('api-token-auth/', obtain_auth_token),
     path('', include('books.urls')),
+    path('docs/', include_docs_urls(title='Books API')),
+    path('swagger-schema/', swagger_schema_view),
+    path('schema/', schema_view),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
