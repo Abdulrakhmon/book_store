@@ -31,6 +31,5 @@ urlpatterns = [
     path('api-token-auth/', obtain_auth_token),
     path('', include('books.urls')),
     path('docs/', include_docs_urls(title='Books API')),
-    path('swagger-schema/', swagger_schema_view),
     path('schema/', schema_view),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
