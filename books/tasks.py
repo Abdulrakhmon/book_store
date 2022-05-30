@@ -2,6 +2,7 @@ import os
 from datetime import date, timedelta
 
 import xlwt
+from celery import shared_task
 from django.conf import settings
 from django.core.mail import EmailMessage
 
@@ -61,3 +62,8 @@ def send_excel():
     except Exception as e:
         print(e)
     return True
+
+
+@shared_task
+def add(x, y):
+    return x + y

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'rest_framework_swagger',
+    'corsheaders',
 
     # Local
     'books.apps.BooksConfig',
@@ -62,12 +63,17 @@ REST_FRAMEWORK = {
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CORS_ALLOWED_ORIGINS = (
+    'http://localhost:3000',
+)
 
 ROOT_URLCONF = 'book_store.urls'
 
@@ -92,13 +98,28 @@ WSGI_APPLICATION = 'book_store.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'db',
+        'PORT': 5432,
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'django-app-db',
+#         'USER': 'root',
+#         'PASSWORD': '',
+#         'HOST': 'db',
+#         'PORT': '3306',
+#     }
+# }
+# mysqlclient>=2.0 adapter for mysql
 
 
 # Password validation
@@ -137,7 +158,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-BROKER_URL = 'redis://localhost:6379'
+BROKER_URL = 'redis://redis:6379'
 CELERY_TIMEZONE = 'Asia/Tashkent'
 CELERY_ENABLE_UTC = False
 CELERY_IMPORTS = (
@@ -158,3 +179,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'users.User'
+CSRF_TRUSTED_ORIGINS = ["http://localhost:3000"]
